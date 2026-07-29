@@ -1,0 +1,7 @@
+# robots.txt — isonomia.gr (static site)
+# NOTE: while the Coming Soon gate is active, consider blocking all indexing
+# (User-agent: * / Disallow: /) instead — see GO-LIVE-CHECKLIST.md.
+User-agent: *
+Allow: /
+
+Sitemap: https://isonomia.gr/sitemap.xml

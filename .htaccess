@@ -1,0 +1,14 @@
+# Static site configuration
+DirectoryIndex index.html index.php
+
+# --- COMING SOON GATE ---
+# Uncomment the block below to gate the whole site behind coming-soon.html
+# until go-live. Remove it (and flip robots.txt back to Allow: /, drop
+# noindex meta tags) as part of the go-live checklist.
+#
+# RewriteEngine On
+# RewriteCond %{QUERY_STRING} !key=REPLACE_WITH_PREVIEW_KEY
+# RewriteCond %{REQUEST_URI} !^/coming-soon\.html$
+# RewriteCond %{REQUEST_URI} !^/assets/
+# RewriteCond %{REQUEST_URI} !^/favicon\.svg$
+# RewriteRule ^(.*)$ /coming-soon.html [L]
