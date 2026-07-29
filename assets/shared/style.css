@@ -344,8 +344,43 @@ section { padding: clamp(3.4rem, 7vw, 5.5rem) 0; }
 .practice-card h3 { font-family: var(--font-display); font-weight: 400; font-size: 20px; color: #a69482; }
 .practice-card p { font-size: 14.5px; color: var(--on-dark-muted); }
 .practice-card ul { margin-top: .3rem; padding-left: 1.1rem; color: var(--on-dark-muted); font-size: 13.5px; display: flex; flex-direction: column; gap: .35rem; }
-@media (max-width: 980px) { .practice-grid { grid-template-columns: repeat(2,1fr); } }
+/* Μονή κάρτα στην τελευταία σειρά → κεντράρισμα αντί για κενό δεξιά */
+.practice-grid > .practice-card:last-child:nth-child(3n+1) { grid-column: 2 / 3; }
+@media (max-width: 980px) {
+  .practice-grid { grid-template-columns: repeat(2,1fr); }
+  .practice-grid > .practice-card:last-child:nth-child(3n+1) { grid-column: auto; }
+}
 @media (max-width: 620px) { .practice-grid { grid-template-columns: 1fr; } }
+
+/* Motto boxes — γεμίζουν την τελευταία σειρά εκατέρωθεν της κάρτας */
+.practice-motto {
+  background: var(--bg-card);
+  border: 1px dotted rgba(166,148,130,.6);
+  padding: 2.2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: .7rem;
+}
+.practice-motto .quote-mark {
+  font-family: var(--font-display);
+  font-size: 54px;
+  line-height: .8;
+  color: #a69482;
+}
+.practice-motto p {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.2rem, 1.9vw, 1.5rem);
+  line-height: 1.5;
+  color: #8a7761;
+  max-width: 20ch;
+}
+/* Dark variant (αρχική σελίδα) — το χρυσό έχει άφθονη αντίθεση σε μαύρο */
+.on-dark .practice-motto { background: var(--ink); border-color: rgba(166,148,130,.5); }
+.on-dark .practice-motto p { color: #a69482; }
 
 /* Light variant, used stand-alone on practice-areas.html */
 .practice-card--light { background: var(--bg-card); border: 1px dotted rgba(166,148,130,.6); color: var(--text); }
@@ -356,6 +391,32 @@ section { padding: clamp(3.4rem, 7vw, 5.5rem) 0; }
 ============================================================ */
 .team-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(190px,1fr)); gap: 1.8rem; margin-top: 2.2rem; }
 .avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--ink); color: var(--white); display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-size: 19px; margin-bottom: 1rem; }
+
+/* Team headshot placeholder — until real photography is available */
+.photo-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  background: repeating-linear-gradient(135deg, var(--bg-mid) 0 10px, var(--bg-card) 10px 20px);
+  border: 1px solid var(--divider);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+.photo-frame .gender-icon { width: 56px; height: 56px; color: #a69482; opacity: .55; }
+.photo-frame .photo-dims {
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10.5px;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
 .team-card .role { font-size: 13px; color: var(--text-muted); margin-top: .15rem; }
 .team-card .since { font-size: 12.5px; color: var(--text-muted); margin-top: .5rem; }
 .team-card p.bio { margin-top: .9rem; font-size: 14px; color: var(--text-muted); }
