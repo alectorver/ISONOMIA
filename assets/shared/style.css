@@ -306,7 +306,7 @@ section { padding: clamp(3.4rem, 7vw, 5.5rem) 0; }
 /* Practice intro content — text + image grid */
 .practice-intro-content {
   display: grid;
-  grid-template-columns: 1fr 500px;
+  grid-template-columns: 1fr 400px;
   gap: clamp(2rem, 5vw, 3.5rem);
   align-items: start;
 }
@@ -325,7 +325,7 @@ section { padding: clamp(3.4rem, 7vw, 5.5rem) 0; }
     gap: 2rem;
   }
   .practice-intro-image {
-    max-width: 400px;
+    max-width: 350px;
     margin: 0 auto;
   }
 }
