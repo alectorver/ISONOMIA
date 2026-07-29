@@ -450,6 +450,31 @@ section { padding: clamp(3.4rem, 7vw, 5.5rem) 0; }
 .form-card .btn { border: none; cursor: pointer; margin-top: .4rem; }
 .form-note { font-size: 12.5px; color: var(--on-dark-muted); margin-top: 1rem; }
 
+/* Light variant — contact.html sits on a white background */
+.on-light .contact-info dt { color: var(--text-muted); }
+.on-light .contact-info dd { color: var(--text); }
+.on-light .form-card {
+  background: var(--bg-mid);
+  border: 1px solid var(--divider);
+}
+.on-light .form-card label { color: var(--text-muted); }
+.on-light .form-card input,
+.on-light .form-card textarea,
+.on-light .form-card select {
+  background: var(--white);
+  border: 1px solid var(--divider);
+  color: var(--text);
+}
+.on-light .form-card select option { color: var(--text); }
+.on-light .form-card input:focus,
+.on-light .form-card textarea:focus,
+.on-light .form-card select:focus { outline: 2px solid var(--ink); outline-offset: 1px; }
+.on-light .form-note { color: var(--text-muted); }
+
+/* Full-bleed map — no container, no side margins */
+.map-section { padding: 0; }
+.map-section iframe { display: block; width: 100%; height: clamp(380px, 55vh, 560px); border: 0; }
+
 /* ============================================================
    FOOTER
 ============================================================ */
