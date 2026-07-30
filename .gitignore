@@ -3,6 +3,3 @@ server.js
 
 # Build output — deploy zips
 dist/
-
-# Large source design file, keep only the exported logo.jpg
-graphics/logo.psd
