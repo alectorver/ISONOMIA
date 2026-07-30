@@ -21,7 +21,7 @@
   --on-dark-muted:  #a3a3a3;
   --font-display: Georgia, 'Iowan Old Style', 'Times New Roman', serif;
   --font-ui: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
-  --font-nav: 'Jost', 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
+  --font-nav: 'Segoe UI', system-ui, -apple-system, 'Helvetica Neue', Arial, sans-serif;
 }
 
 html { scroll-behavior: smooth; }
@@ -324,7 +324,7 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
    STATS STRIP
 ============================================================ */
 .stats { background: var(--ink); color: var(--on-dark); border-top: 1px solid #292929; }
-.stats .container { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 2rem; padding-top: 2.2rem; padding-bottom: 2.2rem; }
+.stats .container { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 2rem; padding-top: 2.2rem; padding-bottom: 2.2rem; text-align: center; }
 .stat b { font-family: var(--font-display); font-size: clamp(1.7rem,3vw,2.3rem); color: #a69482; display: block; font-variant-numeric: tabular-nums; }
 .stat b.stat--text { font-size: clamp(1.1rem,1.7vw,1.4rem); white-space: nowrap; }
 .stat span { font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--on-dark-muted); }
@@ -509,6 +509,24 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
 .map-section { padding: 0; }
 .map-section iframe { display: block; width: 100%; height: clamp(380px, 55vh, 560px); border: 0; }
 
+/* Consent gate — the Google Maps iframe is injected only after an explicit click,
+   so no data reaches Google on page load. */
+.map-consent {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  text-align: center; gap: .55rem;
+  width: 100%; height: clamp(380px, 55vh, 560px);
+  padding: 2rem clamp(1.25rem, 4vw, 2.5rem);
+  background: var(--ink); color: var(--on-dark-muted);
+}
+.map-consent svg { width: 34px; height: 34px; color: #a69482; }
+.map-consent h3 { color: var(--white); font-size: 18px; }
+.map-consent p { margin: 0; font-size: 14px; }
+.map-consent-note { max-width: 560px; font-size: 12.5px; line-height: 1.55; }
+.map-consent-note a { color: #a69482; }
+.map-consent .btn { margin-top: .7rem; }
+.map-consent-alt a { font-size: 13px; color: var(--on-dark-muted); text-decoration: underline; }
+.map-consent-alt a:hover { color: #a69482; }
+
 /* ============================================================
    FOOTER
 ============================================================ */
@@ -533,6 +551,19 @@ footer { background: var(--ink); color: var(--on-dark-muted); }
 .foot-bottom { border-top: 1px solid #292929; max-width: 1120px; margin: 0 auto; padding: 1.2rem clamp(1.25rem,4vw,2.5rem); display: flex; flex-wrap: wrap; justify-content: space-between; gap: .8rem; font-size: 12px; }
 .foot-bottom a:hover { color: #a69482; }
 
+/* Service-provider identification required by Π.Δ. 131/2003 άρθ. 4 — must stay
+   permanently reachable, hence on every page rather than only the legal ones. */
+.foot-legal {
+  border-top: 1px solid #292929;
+  max-width: 1120px; margin: 0 auto;
+  padding: 1.1rem clamp(1.25rem,4vw,2.5rem) 0;
+  display: flex; flex-wrap: wrap; gap: .3rem 1.1rem;
+  font-size: 11.5px; line-height: 1.6; color: #6f6f6f;
+}
+.foot-legal a { text-decoration: underline; }
+.foot-legal a:hover { color: #a69482; }
+.foot-legal .fill-in { font-size: 1em; }
+
 /* ============================================================
    LEGAL PAGE CONTENT (Privacy, Terms, Cookies)
 ============================================================ */
@@ -541,7 +572,29 @@ footer { background: var(--ink); color: var(--on-dark-muted); }
 .legal-content p { color: var(--text-muted); margin-bottom: 1.1rem; }
 .legal-content ul, .legal-content ol { color: var(--text-muted); margin: 0 0 1.1rem 1.4rem; }
 .legal-content li { margin-bottom: .5rem; }
-.legal-content .updated { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 2.6rem; }
+.legal-content .updated {
+  font-size: 12.5px; line-height: 1.6; color: var(--text-muted);
+  padding-bottom: 1.4rem; margin-bottom: 2.6rem;
+  border-bottom: 1px solid var(--divider);
+}
+.legal-content strong { color: var(--text); font-weight: 600; }
+
+/* Callout for the passages a reader must not skim past (confidentiality
+   warnings, "this is not legal advice"). */
+.legal-content .notice {
+  border-left: 3px solid #a69482;
+  background: var(--bg-mid);
+  padding: .95rem 1.15rem;
+  margin-bottom: 1.3rem;
+}
+
+/* Marks details only the firm can supply (ΔΟΥ, bar registration number).
+   Deliberately conspicuous so it cannot ship unnoticed. */
+.fill-in {
+  background: #fff3cd; color: #8a6100;
+  border: 1px dashed #d4a72c; border-radius: 3px;
+  padding: 0 .35em; font-size: .92em; white-space: nowrap;
+}
 
 /* ============================================================
    PHOTO PLACEHOLDER (until real photography is available)
