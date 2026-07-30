@@ -23,8 +23,9 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   }
 
-  // Close menu when clicking a link
-  const links = navLinks.querySelectorAll('a');
+  // Close menu when clicking a link (but not the dropdown toggle itself,
+  // which has its own open/close behaviour below)
+  const links = navLinks.querySelectorAll('a:not(.dropdown-toggle)');
   links.forEach(link => {
     link.addEventListener('click', function() {
       navToggle.setAttribute('aria-expanded', 'false');
@@ -33,13 +34,33 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // Close menu when clicking outside
+  // Close menu when clicking outside the nav
   document.addEventListener('click', function(event) {
-    if (!event.target.closest('nav') && navLinks.classList.contains('is-open')) {
+    if (!event.target.closest('#site-nav') && navLinks.classList.contains('is-open')) {
       navToggle.setAttribute('aria-expanded', 'false');
       navToggle.classList.remove('is-open');
       navLinks.classList.remove('is-open');
     }
+  });
+
+  // Nav dropdowns ("Αντικείμενο", "Εξειδίκευση") — on touch/mobile widths
+  // (no hover) the parent link toggles its submenu instead of navigating
+  // away immediately. Each dropdown is handled independently.
+  const dropdowns = document.querySelectorAll('#site-nav .has-dropdown');
+  dropdowns.forEach(dropdown => {
+    const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
+    if (!dropdownToggle) return;
+    dropdownToggle.addEventListener('click', function(event) {
+      if (window.matchMedia('(max-width: 1024px)').matches) {
+        event.preventDefault();
+        dropdown.classList.toggle('is-open');
+      }
+    });
+    document.addEventListener('click', function(event) {
+      if (!dropdown.contains(event.target) && dropdown.classList.contains('is-open')) {
+        dropdown.classList.remove('is-open');
+      }
+    });
   });
 });
 

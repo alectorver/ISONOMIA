@@ -122,7 +122,7 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
 #site-nav .logo-text strong {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: 18px;
+  font-size: 21px;
   letter-spacing: .07em;
   color: var(--white);
   line-height: 1.15;
@@ -132,16 +132,16 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
   white-space: nowrap;
   font-family: var(--font-ui);
   font-weight: 400;
-  font-size: 9px;
+  font-size: 10.5px;
   letter-spacing: .28em;
   color: #a69482;
   text-transform: uppercase;
   margin-top: 3px;
 }
 @media (max-width: 520px) {
-  #site-nav .logo img { height: 35px; }
-  #site-nav .logo-text strong { font-size: 15px; }
-  #site-nav .logo-text small { font-size: 7px; letter-spacing: .2em; }
+  #site-nav .logo img, #site-nav .logo svg { height: 32px; width: 32px; }
+  #site-nav .logo-text strong { font-size: 17px; }
+  #site-nav .logo-text small { font-size: 8px; letter-spacing: .2em; }
 }
 #site-nav .links {
   display: flex;
@@ -326,6 +326,7 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
 .stats { background: var(--ink); color: var(--on-dark); border-top: 1px solid #292929; }
 .stats .container { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 2rem; padding-top: 2.2rem; padding-bottom: 2.2rem; }
 .stat b { font-family: var(--font-display); font-size: clamp(1.7rem,3vw,2.3rem); color: #a69482; display: block; font-variant-numeric: tabular-nums; }
+.stat b.stat--text { font-size: clamp(1.1rem,1.7vw,1.4rem); white-space: nowrap; }
 .stat span { font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--on-dark-muted); }
 
 /* Practice intro content — text + image grid */
@@ -567,6 +568,189 @@ svg.key { width: 100%; height: 14px; display: block; color: var(--divider); }
 @media (max-width: 520px) {
   .foot-grid { grid-template-columns: 1fr; }
   #site-nav .topline .inner { font-size: 11.5px; }
+}
+
+/* ============================================================
+   SERVICE PAGE — intro text + side image
+============================================================ */
+.service-intro-content {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  align-items: start;
+}
+.service-intro-text { max-width: 620px; }
+.service-intro-text p.service-motto {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  line-height: 1.4;
+  color: #a69482;
+  margin-bottom: 1.6rem;
+}
+.service-intro-text p { color: var(--text-muted); margin-bottom: 1.1rem; }
+.service-intro-text p:last-child { margin-bottom: 0; }
+.service-intro-image { flex-shrink: 0; }
+.service-intro-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: block;
+}
+@media (max-width: 1024px) {
+  .service-intro-content { grid-template-columns: 1fr; gap: 2rem; }
+  .service-intro-image { max-width: 350px; margin: 0 auto; }
+}
+@media (max-width: 720px) {
+  .service-intro-image { max-width: 100%; }
+}
+
+/* Small heading strip before the FAQ list */
+.faq-lead { max-width: 640px; margin: 0 auto 2.2rem; text-align: center; }
+.faq-lead h2 { margin-bottom: .6rem; }
+.faq-lead p { color: var(--text-muted); font-size: 15px; }
+
+/* ============================================================
+   FAQ ACCORDION
+============================================================ */
+.faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; }
+.faq-item { border-bottom: 1px solid var(--divider); }
+.faq-item summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 1.3rem .3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--text);
+  transition: color .2s;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item summary:hover { color: #8a7761; }
+.faq-item .faq-toggle {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border: 1px solid var(--divider);
+  border-radius: 50%;
+  position: relative;
+  transition: transform .25s, border-color .25s;
+}
+.faq-item .faq-toggle::before, .faq-item .faq-toggle::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  background: var(--ink);
+  transition: transform .25s, opacity .2s;
+}
+.faq-item .faq-toggle::before { width: 10px; height: 1px; transform: translate(-50%,-50%); }
+.faq-item .faq-toggle::after { width: 1px; height: 10px; transform: translate(-50%,-50%); }
+.faq-item[open] .faq-toggle { border-color: #a69482; transform: rotate(45deg); }
+.faq-item[open] summary { color: #8a7761; }
+.faq-item .faq-answer { padding: 0 .3rem 1.4rem; color: var(--text-muted); font-size: 15px; max-width: 68ch; }
+
+/* ============================================================
+   PROCESS STEPS (σελίδες εξειδίκευσης)
+============================================================ */
+.process-steps { max-width: 860px; margin: 0 auto; }
+.process-steps .step { display: flex; gap: 1.6rem; align-items: flex-start; padding: 1.7rem 0; border-bottom: 1px solid var(--divider); }
+.process-steps .step:last-child { border-bottom: none; }
+.process-steps .step-num {
+  flex-shrink: 0;
+  width: 44px; height: 44px;
+  border: 1px solid #a69482;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: #a69482;
+}
+.process-steps .step-body h3 { font-family: var(--font-display); font-size: 18px; font-weight: 400; margin-bottom: .4rem; color: var(--text); }
+.process-steps .step-body p { color: var(--text-muted); font-size: 15px; max-width: 62ch; }
+@media (max-width: 560px) {
+  .process-steps .step { gap: 1.1rem; }
+  .process-steps .step-num { width: 38px; height: 38px; font-size: 16px; }
+}
+
+/* Hopeful reassurance block, used just before the CTA on landing-style pages */
+.reassure-block { max-width: 720px; margin: 0 auto; text-align: center; }
+.reassure-block p.reassure-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(1.1rem, 2vw, 1.35rem);
+  line-height: 1.65;
+  color: var(--text);
+}
+.on-dark .reassure-block p.reassure-text { color: var(--on-dark); }
+
+/* ============================================================
+   NAV DROPDOWN (Αντικείμενο → επιμέρους υπηρεσίες)
+============================================================ */
+#site-nav .has-dropdown { position: relative; display: flex; align-items: center; }
+/* Invisible bridge over the gap between the toggle and the menu, so moving
+   the mouse down into the dropdown doesn't lose :hover and close it first. */
+#site-nav .has-dropdown::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 14px;
+  z-index: 1099;
+}
+#site-nav .dropdown-toggle { display: inline-flex; align-items: center; gap: .35rem; cursor: pointer; }
+#site-nav .dropdown-toggle .caret { width: 9px; height: 9px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: rotate(45deg) translateY(-2px); transition: transform .2s; }
+#site-nav .has-dropdown:hover .dropdown-toggle .caret,
+#site-nav .has-dropdown.is-open .dropdown-toggle .caret { transform: rotate(-135deg) translateY(1px); }
+#site-nav .dropdown-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 14px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 280px;
+  background: rgba(10,10,10,.94);
+  border: 1px solid #2e2e2e;
+  border-radius: 6px;
+  padding: .6rem;
+  box-shadow: 0 14px 34px rgba(0,0,0,.4);
+  z-index: 1100;
+}
+#site-nav .has-dropdown:hover .dropdown-menu,
+#site-nav .has-dropdown.is-open .dropdown-menu { display: block; }
+#site-nav .dropdown-menu a {
+  display: block;
+  padding: .6rem .8rem;
+  font-size: 13.5px;
+  letter-spacing: .02em;
+  text-transform: none;
+  color: var(--on-dark-muted);
+  border-radius: 4px;
+  transition: background .15s, color .15s;
+}
+#site-nav .dropdown-menu a:hover { background: rgba(166,148,130,.12); color: #a69482; }
+@media (max-width: 1024px) {
+  #site-nav .has-dropdown { width: 100%; }
+  #site-nav .dropdown-toggle { width: 100%; justify-content: space-between; padding: .85rem 0; border-top: 1px solid #292929; }
+  #site-nav .links a.dropdown-toggle { border-top: none; }
+  #site-nav .dropdown-menu {
+    display: none;
+    position: static;
+    transform: none;
+    width: 100%;
+    min-width: 0;
+    background: rgba(255,255,255,.03);
+    border: none;
+    box-shadow: none;
+    padding: 0 0 .4rem .8rem;
+  }
+  #site-nav .has-dropdown.is-open .dropdown-menu { display: block; }
+  #site-nav .dropdown-menu a { padding: .6rem 0; font-size: 13px; }
 }
 
 /* ============================================================
