@@ -94,7 +94,7 @@
           </dl>
         </div>
         <div class="form-card">
-          <form action="mailto:isonomia@isonomia.gr" method="post" enctype="text/plain">
+          <form id="contact-form" action="contact-handler.php" method="post" novalidate>
             <div class="form-row">
               <div><label for="mname">Όνομα</label><input id="mname" name="name" type="text" placeholder="Το ονοματεπώνυμό σας" required></div>
               <div><label for="memail">Email</label><input id="memail" name="email" type="email" placeholder="name@example.com" required></div>
@@ -119,9 +119,15 @@
             </div>
             <label for="mmsg">Σύντομη περιγραφή υπόθεσης</label>
             <textarea id="mmsg" name="message" placeholder="Περιγράψτε εν συντομία το ζήτημά σας…" required></textarea>
+            <!-- Honeypot field: hidden from real users, bots tend to fill it in -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="website">Website</label>
+              <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+            </div>
             <button class="btn btn--primary" type="submit" style="margin-top:1.1rem;">Αποστολή Μηνύματος</button>
+            <p id="form-status" class="form-status" role="status" aria-live="polite"></p>
           </form>
-          <p class="form-note">Η φόρμα ανοίγει το πρόγραμμα email σας. Εναλλακτικά, καλέστε μας απευθείας στο 23310 21703.</p>
+          <p class="form-note">Θα σας απαντήσουμε σύντομα. Εναλλακτικά, καλέστε μας απευθείας στο 23310 21703.</p>
         </div>
       </div>
     </div>
@@ -175,5 +181,48 @@
 
 <button id="back-to-top" aria-label="Επιστροφή στην κορυφή">↑</button>
 <script src="assets/shared/nav.js"></script>
+<script>
+(function () {
+  var form = document.getElementById('contact-form');
+  var status = document.getElementById('form-status');
+  if (!form) return;
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    status.textContent = '';
+    status.className = 'form-status';
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Αποστολή…';
+
+    fetch(form.action, {
+      method: 'POST',
+      headers: { 'X-Requested-With': 'XMLHttpRequest' },
+      body: new FormData(form)
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (data) {
+        if (data.success) {
+          form.reset();
+          status.textContent = 'Ευχαριστούμε — το μήνυμά σας εστάλη. Θα επικοινωνήσουμε μαζί σας σύντομα.';
+          status.className = 'form-status form-status--success';
+        } else {
+          status.textContent = data.message || 'Κάτι πήγε στραβά. Παρακαλούμε δοκιμάστε ξανά.';
+          status.className = 'form-status form-status--error';
+        }
+      })
+      .catch(function () {
+        status.textContent = 'Κάτι πήγε στραβά κατά την αποστολή του μηνύματός σας. Παρακαλούμε δοκιμάστε ξανά ή επικοινωνήστε απευθείας μαζί μας.';
+        status.className = 'form-status form-status--error';
+      })
+      .finally(function () {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Αποστολή Μηνύματος';
+      });
+  });
+})();
+</script>
 </body>
 </html>

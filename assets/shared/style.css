@@ -475,6 +475,10 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
 .form-card textarea { resize: vertical; min-height: 110px; }
 .form-card .btn { border: none; cursor: pointer; margin-top: .4rem; }
 .form-note { font-size: 12.5px; color: var(--on-dark-muted); margin-top: 1rem; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.form-status { font-family: var(--font-ui); font-size: 13px; min-height: 1.2em; margin-top: .8rem; }
+.form-status--success { color: #4caf7d; }
+.form-status--error { color: #d9534f; }
 
 /* Light variant — contact.html sits on a white background */
 .on-light .contact-info dt { color: var(--text-muted); }
