@@ -1,6 +1,46 @@
 # Static site configuration
 DirectoryIndex index.html index.php
 
+# --- OLD SITE (Joomla) → NEW SITE REDIRECTS ---
+# Old isonomia.gr ran on Joomla with a different URL structure. These 301s
+# preserve existing Google rankings/backlinks/bookmarks once the Document
+# Root is switched over to this new site at go-live. Harmless until then —
+# none of these old paths exist as files here, so nothing to break.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  RewriteRule ^whoweare/?$ /about.html [R=301,L]
+  RewriteRule ^αντικειμενο/?$ /practice-areas.html [R=301,L]
+  RewriteRule ^επικοινωνία/?$ /contact.html [R=301,L]
+  RewriteRule ^όροι-χρήσης-ιστοσελίδας/?$ /terms.html [R=301,L]
+  RewriteRule ^δήλωση-προστασίας-προσωπικών-δεδομένων/?$ /privacy-policy.html [R=301,L]
+
+  # Entire old blog section (index + all /blog/item/... posts) → homepage
+  RewriteRule ^blog(/.*)?$ /index.html [R=301,L]
+</IfModule>
+
+# --- BLOCK BOTS ON STAGING SUBDOMAIN ---
+# Only active on new.isonomia.gr. Safe to leave in place permanently: once
+# the Document Root is switched over to isonomia.gr (the go-live "swap"),
+# this block never matches and has no effect on the live site.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^new\.isonomia\.gr$ [NC]
+  RewriteRule .* - [E=STAGING_SITE:1]
+
+  # Block known crawler/bot user agents outright (403) on staging only
+  RewriteCond %{HTTP_HOST} ^new\.isonomia\.gr$ [NC]
+  RewriteCond %{HTTP_USER_AGENT} (bot|crawl|spider|slurp|bingpreview|facebookexternalhit|semrush|ahrefs|mj12bot|dotbot|petalbot) [NC]
+  RewriteRule .* - [F,L]
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header set X-Robots-Tag "noindex, nofollow, noarchive" env=STAGING_SITE
+</IfModule>
+
+# --- BLOCK ACCESS TO .git ---
+RedirectMatch 404 /\.git
+
 # --- COMING SOON GATE ---
 # Uncomment the block below to gate the whole site behind coming-soon.html
 # until go-live. Remove it (and flip robots.txt back to Allow: /, drop

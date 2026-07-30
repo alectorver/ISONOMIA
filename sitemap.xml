@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://isonomia.gr/</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -12,8 +12,73 @@
   </url>
   <url>
     <loc>https://isonomia.gr/practice-areas.html</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-astiko-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-poiniko-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-ergatiko-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-emporiko-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-dimosio-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-aftokinitikes-diafores.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-yperxrewmena-noikokyria.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-latomiko-dikaio.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-dikaio-allodapon.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-symvaseis.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/specializations.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-exodikastikos-symbivasmos.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://isonomia.gr/practice-prostasia-pleistiriasmou.html</loc>
+    <lastmod>2026-07-30</lastmod>
+    <priority>0.75</priority>
   </url>
   <url>
     <loc>https://isonomia.gr/team.html</loc>
@@ -21,13 +86,8 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://isonomia.gr/blog.html</loc>
-    <lastmod>2026-07-28</lastmod>
-    <priority>0.4</priority>
-  </url>
-  <url>
     <loc>https://isonomia.gr/contact.html</loc>
-    <lastmod>2026-07-28</lastmod>
+    <lastmod>2026-07-30</lastmod>
     <priority>0.6</priority>
   </url>
   <url>

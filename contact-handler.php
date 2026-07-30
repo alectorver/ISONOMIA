@@ -61,6 +61,9 @@ if ($subject !== '' && !in_array($subject, $allowedSubjects, true)) {
 if ($message === '' || mb_strlen($message) > 5000) {
     respond_error('Παρακαλούμε γράψτε ένα μήνυμα (έως 5000 χαρακτήρες).');
 }
+if (empty($_POST['consent'] ?? '')) {
+    respond_error('Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου για να συνεχίσετε.');
+}
 
 $to          = 'contact@isonomia.gr';
 $subjectLine = '[ΙΣΟΝΟΜΙΑ Επικοινωνία] ' . ($subject !== '' ? $subject : 'Γενικό Ερώτημα');
