@@ -443,6 +443,12 @@ main > section:first-child { padding-top: calc(var(--nav-h, 135px) + clamp(3.2re
   text-transform: uppercase;
   color: var(--text-muted);
 }
+/* Frame holding a real headshot. Photos are cut to 4:5, the same ratio as the
+   frame, so object-fit has nothing left to crop — it only guards against a
+   future photo being swapped in at a different ratio. */
+.photo-frame--photo { background: var(--bg-mid); }
+.photo-frame--photo img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 3px; }
+
 .team-card .role { font-size: 13px; color: var(--text-muted); margin-top: .15rem; }
 .team-card .since { font-size: 12.5px; color: var(--text-muted); margin-top: .5rem; }
 .team-card p.bio { margin-top: .9rem; font-size: 14px; color: var(--text-muted); }
