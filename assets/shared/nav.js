@@ -47,6 +47,16 @@ document.addEventListener('DOMContentLoaded', function() {
   // (no hover) the parent link toggles its submenu instead of navigating
   // away immediately. Each dropdown is handled independently.
   const dropdowns = document.querySelectorAll('#site-nav .has-dropdown');
+
+  // Single global click handler for closing dropdowns
+  document.addEventListener('click', function(event) {
+    if (!event.target.closest('#site-nav .has-dropdown')) {
+      dropdowns.forEach(dropdown => {
+        dropdown.classList.remove('is-open');
+      });
+    }
+  });
+
   dropdowns.forEach(dropdown => {
     const dropdownToggle = dropdown.querySelector('.dropdown-toggle');
     if (!dropdownToggle) return;
@@ -54,11 +64,6 @@ document.addEventListener('DOMContentLoaded', function() {
       if (window.matchMedia('(max-width: 1024px)').matches) {
         event.preventDefault();
         dropdown.classList.toggle('is-open');
-      }
-    });
-    document.addEventListener('click', function(event) {
-      if (!dropdown.contains(event.target) && dropdown.classList.contains('is-open')) {
-        dropdown.classList.remove('is-open');
       }
     });
   });

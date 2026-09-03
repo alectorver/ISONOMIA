@@ -2,21 +2,54 @@
 DirectoryIndex index.html index.php
 
 # --- OLD SITE (Joomla) → NEW SITE REDIRECTS ---
-# Old isonomia.gr ran on Joomla with a different URL structure. These 301s
-# preserve existing Google rankings/backlinks/bookmarks once the Document
-# Root is switched over to this new site at go-live. Harmless until then —
-# none of these old paths exist as files here, so nothing to break.
+# The old isonomia.gr ran Joomla 3.9.11 with the K2 component. These 301s
+# preserve rankings, backlinks and bookmarks once the Document Root is switched
+# over at go-live. Harmless until then — none of these paths exist as files
+# here, so nothing can match by accident.
+#
+# The full URL inventory and the reasoning behind each mapping is in
+# REDIRECTS.md. Keep the two in step when editing.
+#
+# A trailing "?" in the substitution discards the old query string, so Joomla
+# leftovers like ?start=13 or ?tmpl=component&print=1 do not ride along.
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  RewriteRule ^whoweare/?$ /about.html [R=301,L]
-  RewriteRule ^αντικειμενο/?$ /practice-areas.html [R=301,L]
-  RewriteRule ^επικοινωνία/?$ /contact.html [R=301,L]
-  RewriteRule ^όροι-χρήσης-ιστοσελίδας/?$ /terms.html [R=301,L]
-  RewriteRule ^δήλωση-προστασίας-προσωπικών-δεδομένων/?$ /privacy-policy.html [R=301,L]
+  # Alternative spelling of the front page
+  RewriteRule ^index\.php$ /? [R=301,L]
 
-  # Entire old blog section (index + all /blog/item/... posts) → homepage
-  RewriteRule ^blog(/.*)?$ /index.html [R=301,L]
+  # Entire article section → homepage (index, pagination and every post).
+  # Must precede the /item/ rules below, which use a permissive first segment.
+  RewriteRule ^blog(/.*)?$ /? [R=301,L]
+
+  # Practice-area pages — the most valuable URLs on the old site.
+  # Keyed on the numeric K2 item id rather than the Greek slug, so the rules do
+  # not depend on how the server decodes non-ASCII paths.
+  RewriteRule ^[^/]+/item/10-  /practice-symvaseis.html?              [R=301,L]
+  RewriteRule ^[^/]+/item/11-  /practice-dikaio-allodapon.html?       [R=301,L]
+  RewriteRule ^[^/]+/item/12-  /practice-ergatiko-dikaio.html?        [R=301,L]
+  RewriteRule ^[^/]+/item/13-  /practice-emporiko-dikaio.html?        [R=301,L]
+  RewriteRule ^[^/]+/item/14-  /practice-dimosio-dikaio.html?         [R=301,L]
+  RewriteRule ^[^/]+/item/15-  /practice-astiko-dikaio.html?          [R=301,L]
+  RewriteRule ^[^/]+/item/16-  /practice-poiniko-dikaio.html?         [R=301,L]
+  RewriteRule ^[^/]+/item/67-  /practice-yperxrewmena-noikokyria.html? [R=301,L]
+  RewriteRule ^[^/]+/item/70-  /practice-aftokinitikes-diafores.html? [R=301,L]
+  RewriteRule ^[^/]+/item/174- /practice-latomiko-dikaio.html?        [R=301,L]
+  # No GDPR page on the new site yet — send it to the practice-areas index
+  RewriteRule ^[^/]+/item/257- /practice-areas.html?                  [R=301,L]
+
+  # Main menu pages. /whoweare already 404s on the live site but is linked from
+  # every page, so it has almost certainly been crawled — redirecting it fixes
+  # a long-standing broken link rather than creating one.
+  RewriteRule ^whoweare/?$                              /about.html?           [R=301,L]
+  RewriteRule ^αντικειμενο/?$                           /practice-areas.html?  [R=301,L]
+  RewriteRule ^επικοινωνία/?$                           /contact.html?         [R=301,L]
+  RewriteRule ^όροι-χρήσης-ιστοσελίδας/?$               /terms.html?           [R=301,L]
+  RewriteRule ^δήλωση-προστασίας-προσωπικών-δεδομένων/?$ /privacy-policy.html? [R=301,L]
+
+  # K2 tag listings → practice areas; anything else under /component → homepage
+  RewriteRule ^component/k2/itemlist/tag/ /practice-areas.html? [R=301,L]
+  RewriteRule ^component(/.*)?$           /?                    [R=301,L]
 </IfModule>
 
 # --- BLOCK BOTS ON STAGING SUBDOMAIN ---
