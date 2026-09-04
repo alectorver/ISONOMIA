@@ -814,7 +814,9 @@ svg.key { width: 100%; height: 14px; display: block; color: var(--divider); }
 }
 #site-nav .dropdown-menu a:hover { background: rgba(166,148,130,.12); color: #a69482; }
 @media (max-width: 1024px) {
-  #site-nav .has-dropdown { width: 100%; }
+  #site-nav .has-dropdown { width: 100%; flex-direction: column; align-items: stretch; }
+  #site-nav .has-dropdown::after { display: none; }
+  #site-nav .has-dropdown:hover:not(.is-open) .dropdown-menu { display: none; }
   #site-nav .dropdown-toggle { width: 100%; justify-content: space-between; padding: .85rem 0; border-top: 1px solid #292929; }
   #site-nav .links a.dropdown-toggle { border-top: none; }
   #site-nav .dropdown-menu {
