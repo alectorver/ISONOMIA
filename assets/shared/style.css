@@ -690,6 +690,35 @@ svg.key { width: 100%; height: 14px; display: block; color: var(--divider); }
 .faq-lead h2 { margin-bottom: .6rem; }
 .faq-lead p { color: var(--text-muted); font-size: 15px; }
 
+/* Share bar — sits after the FAQ list so a reader who's finished the article
+   can pass it along. Left-aligned at the same max-width/padding as
+   .faq-list so its edge lines up with the FAQ question text above it.
+   Facebook and WhatsApp open a real share dialog; Instagram has no web
+   share endpoint, so that button copies the link instead (see
+   .share-btn--copy in nav.js). */
+.share-bar { max-width: 780px; margin: 2.4rem auto 0; padding: 0 .3rem; display: flex; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.share-bar__label { font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--text-muted); }
+.share-btn {
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  width: 42px; height: 42px;
+  border: 1.5px solid var(--divider);
+  border-radius: 50%;
+  color: var(--text-muted);
+  background: none;
+  cursor: pointer;
+  transition: background .2s, border-color .2s, color .2s, transform .2s, box-shadow .2s;
+}
+.share-btn:hover {
+  background: #a69482;
+  border-color: #a69482;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(166,148,130,.35);
+}
+.share-btn svg { width: 20px; height: 20px; }
+.share-bar__status { font-size: 12.5px; color: #4caf7d; }
+
 /* ============================================================
    FAQ ACCORDION
 ============================================================ */
@@ -854,3 +883,49 @@ svg.key { width: 100%; height: 14px; display: block; color: var(--divider); }
 }
 #back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
 #back-to-top:hover { filter: brightness(1.4); }
+
+/* ============================================================
+   GALLERY + LIGHTBOX
+   Ίδιο μοτίβο με το gallery--editorial του site driades-naoussa:
+   κελιά κοντά στη φυσική αναλογία τους αντί για ενιαία τετράγωνα.
+   - κανονικό κελί → 3:2 (οριζόντιες φωτογραφίες)
+   - .is-tall      → 2 σειρές, ~2:3 (κάθετες φωτογραφίες)
+   - .is-feature   → 2 στήλες × 2 σειρές (επιλεγμένες, ρυθμός στη σελίδα)
+   Τα ύψη σειρών υπολογίζονται ρητά από το πλάτος στήλης (όχι aspect-ratio
+   στα κελιά), γιατί με dense packing κάποιες σειρές έχουν μόνο διπλά κελιά
+   και δεν έχουν τι να τις μετρήσει.
+============================================================ */
+.gallery { display: grid; grid-template-columns: repeat(4,1fr); grid-auto-flow: dense; gap: 14px; }
+.gallery a { display: block; height: 100%; border-radius: 4px; overflow: hidden; }
+.gallery img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+.gallery a:hover img { transform: scale(1.06); }
+.gallery .is-tall { grid-row: span 2; }
+.gallery .is-feature { grid-column: span 2; grid-row: span 2; }
+
+.gallery { grid-auto-rows: calc((min(1180px,100vw) - 90px) / 6); }
+@media (max-width: 1080px) and (min-width: 861px) {
+  .gallery { grid-template-columns: repeat(3,1fr); grid-auto-rows: calc((100vw - 76px) / 4.5); }
+}
+@media (max-width: 860px) {
+  .gallery { grid-template-columns: repeat(2,1fr); grid-auto-rows: calc((100vw - 62px) / 3); }
+}
+@media (max-width: 620px) {
+  .gallery { gap: 10px; grid-auto-rows: calc((100vw - 58px) / 3); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gallery img { transition: none; }
+}
+
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 1001;
+  background: rgba(10,10,10,.94); align-items: center; justify-content: center;
+}
+.lightbox.is-open { display: flex; }
+.lightbox__img { max-width: 88vw; max-height: 84vh; border-radius: 2px; }
+.lightbox__close, .lightbox__prev, .lightbox__next {
+  position: absolute; background: none; border: none; color: var(--white);
+  font-size: 2rem; cursor: pointer; line-height: 1; padding: 12px;
+}
+.lightbox__close { top: 12px; right: 16px; }
+.lightbox__prev { left: 12px; top: 50%; transform: translateY(-50%); }
+.lightbox__next { right: 12px; top: 50%; transform: translateY(-50%); }

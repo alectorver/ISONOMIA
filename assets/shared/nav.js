@@ -88,6 +88,48 @@ function justifyLogoTagline() {
 document.addEventListener('DOMContentLoaded', justifyLogoTagline);
 window.addEventListener('resize', justifyLogoTagline);
 
+// Share bar — Facebook and WhatsApp buttons are plain links that open a real
+// share dialog. Instagram has no equivalent web endpoint, so its button
+// copies the page link to the clipboard instead (for pasting into a Story,
+// bio or DM).
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.share-btn--copy').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      const url = btn.getAttribute('data-share-url');
+      const status = btn.closest('.share-bar').querySelector('.share-bar__status');
+
+      const showStatus = function(text) {
+        if (!status) return;
+        status.textContent = text;
+        clearTimeout(status._hideTimer);
+        status._hideTimer = setTimeout(function() { status.textContent = ''; }, 4000);
+      };
+
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(url)
+          .then(function() { showStatus('Ο σύνδεσμος αντιγράφηκε'); })
+          .catch(function() { showStatus('Αντιγράψτε τον σύνδεσμο: ' + url); });
+        return;
+      }
+
+      // Fallback for browsers without the async Clipboard API
+      const temp = document.createElement('textarea');
+      temp.value = url;
+      temp.style.position = 'fixed';
+      temp.style.opacity = '0';
+      document.body.appendChild(temp);
+      temp.select();
+      try {
+        document.execCommand('copy');
+        showStatus('Ο σύνδεσμος αντιγράφηκε');
+      } catch (e) {
+        showStatus('Αντιγράψτε τον σύνδεσμο: ' + url);
+      }
+      document.body.removeChild(temp);
+    });
+  });
+});
+
 // Back to top button
 document.addEventListener('DOMContentLoaded', function() {
   const backToTop = document.getElementById('back-to-top');
